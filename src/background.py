@@ -26,10 +26,12 @@ class Background(Entity):
         self.top_left = (0 - round(image_size[0] / 2), 0 - round(image_size[1] / 2))
 
     def move(self, left=0, right=0, up=0, down=0):
-        print(left, right, up, down)
         top_left = list(self.top_left)
-        top_left[0] + (right - left)
-        top_left[1] + (up - down)
+
+        # flip round left and right deliberately here so it paralax's n shit
+        top_left[0] += (left - right)
+        top_left[1] += (down - up)
+        print(self.top_left, top_left)
 
         if top_left[0] < 0 - self.surface.get_width():
             top_left += self.surface.get_width()

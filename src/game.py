@@ -63,7 +63,7 @@ class Game(object):
         self.clock.tick(self.fps)
 
     def keyboard_event(self, event):
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE or event.key == pygame.K_q:
             self.quit = True
         if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
             self.pause = True
