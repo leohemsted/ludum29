@@ -1,5 +1,6 @@
 import pygame
-import diver, background
+import diver
+import background
 
 
 class Game(object):
@@ -31,18 +32,22 @@ class Game(object):
         pressed_keys = pygame.key.get_pressed()
 
         self.diver.move(left=pressed_keys[pygame.K_a],
-            right=pressed_keys[pygame.K_d],
-            up=pressed_keys[pygame.K_w],
-            down=pressed_keys[pygame.K_s])
+                        right=pressed_keys[pygame.K_d],
+                        up=pressed_keys[pygame.K_w],
+                        down=pressed_keys[pygame.K_s])
 
     def background_scrolling(self):
         pressed_keys = pygame.key.get_pressed()
-        left, right, up, down = 0,0,0,0
+        left, right, up, down = 0, 0, 0, 0
 
-        if pressed_keys[pygame.K_w]: up = 1
-        if pressed_keys[pygame.K_s]: down = 1
-        if pressed_keys[pygame.K_a]: left = 1
-        if pressed_keys[pygame.K_d]: right = 1
+        if pressed_keys[pygame.K_w]:
+            up = 1
+        if pressed_keys[pygame.K_s]:
+            down = 1
+        if pressed_keys[pygame.K_a]:
+            left = 1
+        if pressed_keys[pygame.K_d]:
+            right = 1
 
         self.bg.move(left=left, right=right, up=up, down=down)
 
@@ -62,7 +67,6 @@ class Game(object):
             self.quit = True
         if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
             self.pause = True
-        
 
     def process_events(self):
         for event in pygame.event.get():
