@@ -1,12 +1,9 @@
-import pygame as pg
-
-
+from game import Game
 
 def main():
-    game_running = True
-    while not self.done:
+    game = Game()
+    while game.running():
         game.tick()
-        game_running = game.isExit()
 
 if __name__ == '__main__':
     main()
