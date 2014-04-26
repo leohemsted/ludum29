@@ -23,6 +23,7 @@ class Background(Entity):
             for x in range(0, width, image_size[0]):
                 self.surface.blit(image, (x, y))
 
+        self.texture_size = image_size
         self.top_left = (0 - round(image_size[0] / 2), 0 - round(image_size[1] / 2))
 
     def move(self, left=0, right=0, up=0, down=0):
@@ -31,12 +32,16 @@ class Background(Entity):
         # flip round left and right deliberately here so it paralax's n shit
         top_left[0] += (left - right)
         top_left[1] += (down - up)
-        print(self.top_left, top_left)
 
-        if top_left[0] < 0 - self.surface.get_width():
-            top_left += self.surface.get_width()
-        if top_left[1] < 0 - self.surface.get_height():
-            top_left += self.surface.get_height()
+        if top_left[0] > 0:
+            top_left[0] -= self.texture_size[0]
+        if top_left[1] > 0:
+            top_left[1] -= self.texture_size[1]
+        if top_left[0] < (0 - self.texture_size[0]):
+            top_left[0] += self.texture_size[0]
+        if top_left[1] < (0 - self.texture_size[1]):
+            top_left[1] += self.texture_size[1]
+
         self.top_left = tuple(top_left)
 
     def draw(self, surface):
