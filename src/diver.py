@@ -20,6 +20,8 @@ class Diver(pygame.sprite.Sprite):
         self.surface = pygame.Surface((60, 40))
         self.surface.fill(pygame.Color('red'))
         self.mask = pygame.mask.from_surface(self.surface)
+        self.mask.fill()
+        print(self.mask.count())
 
         self.x_speed = 0
         self.y_speed = 0

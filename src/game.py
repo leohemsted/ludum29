@@ -40,9 +40,8 @@ class Game(object):
                         up=pressed_keys[pygame.K_w],
                         down=pressed_keys[pygame.K_s])
 
-        if pygame.sprite.collide_mask(self.diver, self.rocks):
-            print(party)
-            self.diver.bounce(self.rock.collision_mask)
+        if self.rocks.mask.overlap(self.diver.mask, self.diver.rect):
+            self.diver.bounce(self.rocks.mask, overlap_point)
 
     def background_scrolling(self):
         pressed_keys = pygame.key.get_pressed()
