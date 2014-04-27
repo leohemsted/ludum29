@@ -1,8 +1,7 @@
 import pygame
-from entity import Entity
 
 
-class Diver(Entity):
+class Diver(pygame.sprite.Sprite):
     def __init__(self, start_loc):
         super().__init__()
 
@@ -20,9 +19,13 @@ class Diver(Entity):
 
         self.surface = pygame.Surface((60, 40))
         self.surface.fill(pygame.Color('red'))
+        self.mask = pygame.mask.from_surface(self.surface)
 
         self.x_speed = 0
         self.y_speed = 0
+
+        # set up self.rect
+        self._move(0, 0)
 
     def move(self, left=False, right=False, up=False, down=False):
         # call this once per tick! Always!
@@ -43,8 +46,17 @@ class Diver(Entity):
 
     def _move(self, x, y):
         self.centre_coords = tuple([self.centre_coords[0] + x, self.centre_coords[1] + y])
+        self.rect = (int(self.centre_coords[0] - (self.surface.get_width() / 2)),
+                     int(self.centre_coords[1] - (self.surface.get_height() / 2)))
+
+    def bounce(self, collision_mask):
+        # bounce off a given collision mask
+
+        # simplistic approach: reverse speed completely and move one tick
+        self.x_speed *= -1
+        self.y_speed *= -1
+
+        self.move()
 
     def draw(self, surface):
-        top_left = (self.centre_coords[0] - (self.surface.get_width() / 2),
-                    self.centre_coords[1] - (self.surface.get_height() / 2))
-        surface.blit(self.surface, top_left)
+        surface.blit(self.surface, self.rect)

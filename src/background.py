@@ -1,14 +1,11 @@
 import pygame
 import math
-from entity import Entity
 
-
-class Background(Entity):
+class Background(object):
     def __init__(self, screen_dimensions):
-        super().__init__()
 
         self.collisions_on = False
-        image = pygame.image.load(self.resource_dir + 'sea_background.png').convert()
+        image = pygame.image.load('../resources/sea_background.png').convert()
         image_size = image.get_size()
 
         # get the next highest area that covers the screen

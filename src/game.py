@@ -1,6 +1,7 @@
 import pygame
 import diver
 import background
+import rock
 
 
 class Game(object):
@@ -19,10 +20,13 @@ class Game(object):
         self.surface = self.display.get_surface()
 
     def init_entities(self):
-        self.bg = background.Background(self.dimensions)
         self.diver = diver.Diver((self.dimensions[0] / 2, self.dimensions[1] / 2))
-        self.entities.append(self.bg)
-        self.entities.append(self.diver)
+        self.bg = background.Background(self.dimensions)
+        self.rocks = rock.Rock(self.dimensions)
+
+        rock.create_rocks(self.rocks)
+
+        self.entities = [self.bg, self.diver, self.rocks]
 
     def redraw_entities(self):
         for entity in self.entities:
@@ -35,6 +39,10 @@ class Game(object):
                         right=pressed_keys[pygame.K_d],
                         up=pressed_keys[pygame.K_w],
                         down=pressed_keys[pygame.K_s])
+
+        if pygame.sprite.collide_mask(self.diver, self.rocks):
+            print(party)
+            self.diver.bounce(self.rock.collision_mask)
 
     def background_scrolling(self):
         pressed_keys = pygame.key.get_pressed()
